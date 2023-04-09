@@ -43,7 +43,7 @@ engine:
     - fallback_segmentor
   translators:
     - punct_translator
-    - table_translator
+    - r10n_translator
 
 menu:
   alternative_select_keys: "123456789"
