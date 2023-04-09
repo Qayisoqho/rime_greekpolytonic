@@ -1,0 +1,71 @@
+# Rime schema
+# encoding: utf-8
+
+schema:
+  schema_id: greek_polytonic
+  name: "多调希腊文"
+  version: "0.1"
+  author:
+    - Qayisoqho <sxjdhx@163.com>
+  description: |
+    多调希腊文输入方案，当然也可以用于输入现代希腊文
+    力求直观，尽可能忠于古典希腊语的音系
+    输入先照顾音段内容，再补充超音段内容，故附加符号（主要是声调符号）输入在下加iota之后
+    '['前导为粗气符，']'前导为柔气符
+    短音符号不常出现，故以类似象形的方式输入'v'
+    '='前导可以输入废弃或异体字母
+
+    鸣谢：
+    - polyhedron 的 rime-greek (https://github.com/biopolyhedron/rime-greek)
+    - Lexilogos 的 Acient Greek Keyboard (https://www.lexilogos.com/keyboard/greek_ancient.htm)
+    - mksinicus 的 Semkey (https://github.com/mksinicus/rime-semkey)
+
+    本方案基于“无许可证”（The Unlicense）分发
+
+switches:
+  - name: ascii_mode
+    reset: 0
+    states: [ 希腊文, 英文 ]
+
+engine:
+  processors:
+    - ascii_composer
+#    - key_binder
+    - speller
+    - punctuator  # 先於 editor 才會使空格作符號上屏
+    - selector
+    - navigator
+    - express_editor
+  segmentors:
+    - ascii_segmentor
+    - abc_segmentor
+    - punct_segmentor
+    - fallback_segmentor
+  translators:
+    - punct_translator
+    - table_translator
+
+menu:
+  alternative_select_keys: "123456789"
+
+speller:
+  alphabet: "abcdefghiklmnoprstuvwxyzABCDEFGHIKLMNOPRSTUVWXZ`/\\[]-=;',.^:"
+  delimiter: ' '
+  algebra:
+    - derive/^[`[]=]?([AEIOURaeiour])[-y/\^:]*$/$1/
+    - derive/sq/s/
+  auto_select: false #
+
+
+translator:
+  dictionary: greek_polytonic
+
+punctuator:  # 只須定義空格一個符號
+  half_shape: &symtable
+    '?' : { commit: ';' }
+    ',' : { commit: '·' }
+    ' ' : { commit: ' ' }
+
+#key_binder:
+#  import_preset: default
+
