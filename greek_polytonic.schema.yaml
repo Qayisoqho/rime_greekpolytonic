@@ -43,7 +43,7 @@ engine:
     - fallback_segmentor
   translators:
     - punct_translator
-    - r10n_translator
+    - table_translator
 
 menu:
   alternative_select_keys: "123456789"
@@ -52,15 +52,17 @@ speller:
   alphabet: "abcdefghiklmnoprstuvwxyzABCDEFGHIKLMNOPRSTUVWXZ`/\\[]-=;',.^:"
   delimiter: ' '
   algebra:
-    - derive/^[`[]=]?([AEIOURaeiour])[-y/\^:]*$/$1/
+    - derive/^[`[]=]?([AEIOURaeiour])[-y/\^:v]*$/$1/
     - derive/sq/s/
-  auto_select: false #
+  auto_select: true #
 
 
 translator:
   dictionary: greek_polytonic
+  enable_sentence: false
+  enable_user_dict: false
 
-punctuator:  # 只須定義空格一個符號
+punctuator:
   half_shape: &symtable
     '?' : { commit: ';' }
     ',' : { commit: '·' }
